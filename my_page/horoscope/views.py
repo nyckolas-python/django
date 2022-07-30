@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 zodiac_dict = {
@@ -19,11 +19,12 @@ zodiac_dict = {
 
 
 def get_zodiac_by_number(request, sign_zodiac: int):
-    description = zodiac_dict.get(sign_zodiac, None)
-    if description:
-        return HttpResponse(description)
+    zodiac_list = list(zodiac_dict)
+    if sign_zodiac < len(zodiac_list):
+        name_zodiac = zodiac_list[sign_zodiac-1]
+        return HttpResponseRedirect(f"/horoscope/{name_zodiac}")
     else:
-        return HttpResponseNotFound(f"It is not zodiac sign - {sign_zodiac}")
+        return HttpResponseNotFound(f"There is no such zodiac sign number - {sign_zodiac}")
    
  
 def get_zodiac(request, sign_zodiac: str):
