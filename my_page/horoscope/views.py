@@ -17,6 +17,13 @@ zodiac_dict = {
     'pisces': 'Zodiac sign - Pisces is the twelfth sign of the zodiac, the planet Jupiter (February 20 to March 20).',
 }
 
+types_dict = {
+    'fire': ['aries', 'taurus', 'gemini'],
+    'earth': ['cancer', 'leo', 'virgio'], 
+    'air': ['libra', 'scorpio', 'sagittarius'],
+    'water': ['capricorn', 'aquarius', 'pisces']
+}
+
 
 def index(request):
     zodiac_list = list(zodiac_dict)
@@ -24,7 +31,29 @@ def index(request):
     for sign in zodiac_list:
         redirect_path = reverse('horoscope-name', args=(sign, ))
         li_elements += f"<li> <a href='{redirect_path}'>{sign.title()}</a> </li>"
-    
+
+    response = f"<ul> {li_elements} </ul>"
+    return HttpResponse(response)
+
+
+def get_type(request):
+    types_list = list(types_dict)
+    li_elements = ''
+    for type_name in types_list:
+        redirect_path = reverse('type-name', args=(type_name, ))
+        li_elements += f"<li> <a href='{redirect_path}'>{type_name.title()}</a> </li>"
+
+    response = f"<ul> {li_elements} </ul>"
+    return HttpResponse(response)
+
+
+def get_type_names(request, type_name: str):
+    zodiac_list = types_dict.get(type_name, None)
+    li_elements = ''
+    for sign in zodiac_list:
+        redirect_path = reverse('horoscope-name', args=(sign, ))
+        li_elements += f"<li> <a href='{redirect_path}'>{sign.title()}</a> </li>"
+
     response = f"<ul> {li_elements} </ul>"
     return HttpResponse(response)
     
@@ -37,8 +66,8 @@ def get_zodiac_by_number(request, sign_zodiac: int):
         return HttpResponseRedirect(f"{redirect_url}")
     else:
         return HttpResponseNotFound(f"There is no such zodiac sign number - {sign_zodiac}")
-   
- 
+
+
 def get_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
     if description:
