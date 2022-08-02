@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from math import pi
+from django.urls import reverse
 
 def get_rectangle_area(request, width: int, height: int):
-    return HttpResponseRedirect(f"/calculate_geometry/rectangle/{width}/{height}")
+    redirect_url = reverse('rectangle', args=(width, height))
+    return HttpResponseRedirect(redirect_url)
 
 def get_square_area(request, width: int):
-    return HttpResponseRedirect(f"/calculate_geometry/square/{width}/{width}")
+    redirect_url = reverse('square', args=(width, ))
+    return HttpResponseRedirect(redirect_url)
 
 def get_circle_area(request, radius: int):
-    return HttpResponseRedirect(f"/calculate_geometry/circle/{radius}")
+    redirect_url = reverse('circle', args=(radius, ))
+    return HttpResponseRedirect(redirect_url)
 
 def rectangle(request, width: int, height: int):
     return HttpResponse(f"The area of the rectangle {width}x{height} is equal - {width*height}")
