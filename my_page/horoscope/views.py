@@ -49,13 +49,17 @@ def get_type(request):
 
 def get_type_names(request, type_name: str):
     zodiac_list = types_dict.get(type_name, None)
-    li_elements = ''
-    for sign in zodiac_list:
-        redirect_path = reverse('horoscope-name', args=(sign, ))
-        li_elements += f"<li> <a href='{redirect_path}'>{sign.title()}</a> </li>"
+    if zodiac_list:
+        li_elements = ''
+        for sign in zodiac_list:
+            redirect_path = reverse('horoscope-name', args=(sign, ))
+            li_elements += f"<li> <a href='{redirect_path}'>{sign.title()}</a> </li>"
 
-    response = f"<ul> {li_elements} </ul>"
-    return HttpResponse(response)
+        response = f"<ul> {li_elements} </ul>"
+        return HttpResponse(response)
+    else:
+        redirect_url = reverse('type/')
+        return HttpResponseRedirect(f"{redirect_url}")
     
 
 def get_zodiac_by_number(request, sign_zodiac: int):
