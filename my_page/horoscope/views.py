@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 zodiac_dict = {
     'aries': 'Zodiac sign - Aries is the first sign of the zodiac, the planet Mars (March 21 to April 20).',
@@ -74,7 +75,5 @@ def get_zodiac_by_number(request, sign_zodiac: int):
 
 def get_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
-    if description:
-        return HttpResponse(description)
-    else:
-        return HttpResponseNotFound(f"It is not zodiac sign - {sign_zodiac}")
+    response = render_to_string('horoscope/info_zodiac.html')
+    return HttpResponse(response)
