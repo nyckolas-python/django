@@ -75,5 +75,4 @@ def get_zodiac_by_number(request, sign_zodiac: int):
 
 def get_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
-    response = render_to_string('horoscope/info_zodiac.html')
-    return HttpResponse(response)
+    return render(request, 'horoscope/info_zodiac.html')
