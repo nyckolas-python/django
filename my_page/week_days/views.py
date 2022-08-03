@@ -16,6 +16,7 @@ def get_day_by_number(request, day: int):
 
 def get_day_name(request, day: str):
     if day.lower() in day_list:
-        return HttpResponse(f"Today is a beautiful day - {day.capitalize()}")
+        # return (f"Today is a beautiful day - {day.capitalize()}")
+        return render(request, 'week_days/greeting.html')
     else:
         return HttpResponseNotFound(f"I don't know such a day of the week.")
