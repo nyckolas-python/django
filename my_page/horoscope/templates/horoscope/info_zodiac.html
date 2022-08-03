@@ -2,11 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <title></title>
+  <title>Horoscope for {{ sign }}</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<h1>Horoscope Application</h1>
-	<h2>Zodiac sign - Aquarius is the eleventh sign of the zodiac, the planets Uranus and Saturn (January 21 to February 19).</h2>
+	<h2>{{ description_data }}</h2>
+  <p>Number Int - {{ my_int }}</p>
+  <p>Number float - {{ my_float }}</p>
+  <p>List - {{ my_list }}</p>
+  <p>Tuple - {{ my_tuple }}</p>
+  <p>Dict - {{ my_dict }}, key - {{ my_dict.name }}</p>
+  <p>Class instance - {{ my_class }} age {{ my_class.age }}</p>
+
+
 </body>
 </html>

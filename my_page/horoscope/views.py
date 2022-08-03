@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
+from dataclasses import dataclass
+
 
 zodiac_dict = {
     'aries': 'Zodiac sign - Aries is the first sign of the zodiac, the planet Mars (March 21 to April 20).',
@@ -20,7 +22,7 @@ zodiac_dict = {
 
 types_dict = {
     'fire': ['aries', 'taurus', 'gemini'],
-    'earth': ['cancer', 'leo', 'virgio'], 
+    'earth': ['cancer', 'leo', 'virgio'],
     'air': ['libra', 'scorpio', 'sagittarius'],
     'water': ['capricorn', 'aquarius', 'pisces']
 }
@@ -61,7 +63,7 @@ def get_type_names(request, type_name: str):
     else:
         redirect_url = reverse('type/')
         return HttpResponseRedirect(f"{redirect_url}")
-    
+
 
 def get_zodiac_by_number(request, sign_zodiac: int):
     zodiac_list = list(zodiac_dict)
@@ -72,7 +74,24 @@ def get_zodiac_by_number(request, sign_zodiac: int):
     else:
         return HttpResponseNotFound(f"There is no such zodiac sign number - {sign_zodiac}")
 
+@dataclass
+class Person():
+    name: str
+    age: int
+    def __str__(self) -> str:
+        return f"This is {self.name}"
 
 def get_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac, None)
-    return render(request, 'horoscope/info_zodiac.html')
+    data = {
+        'description_data': description,
+        'sign': sign_zodiac.title(),
+        'my_int': 111,
+        'my_float': 111.25,
+        'my_list': [1, 2, 3],
+        'my_tuple': (1, 2, 3, 4, 5),
+        'my_dict': {'name': 'Jack', 'age': 40},
+        'my_class': Person('Nyckolas', 32),
+        
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=data)
