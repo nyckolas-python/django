@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Horoscope Application List</title>
+  {% comment %} <link rel="stylesheet" href="style.css" /> {% endcomment %}
+</head>
+<body>
+  <h1>Horoscope Application List</h1>
+  {% if zodiac_list %}
+  <ul>
+  {% for zodiac in zodiac_list %}
+    <li> <a href='{% url 'horoscope-name' sign_zodiac=zodiac %}'>{{zodiac|title}}</a> </li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+</body>
+</html>
