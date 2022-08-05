@@ -30,13 +30,11 @@ types_dict = {
 
 def index(request):
     zodiac_list = list(zodiac_dict)
-    li_elements = ''
-    for sign in zodiac_list:
-        redirect_path = reverse('horoscope-name', args=(sign, ))
-        li_elements += f"<li> <a href='{redirect_path}'>{sign.title()}</a> </li>"
-
-    response = f"<ul> {li_elements} </ul>"
-    return HttpResponse(response)
+    context = {
+        'zodiac_list': zodiac_list,
+        'zodiac_dict': zodiac_dict,
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def get_type(request):
