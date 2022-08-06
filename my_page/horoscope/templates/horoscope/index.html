@@ -1,11 +1,18 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Horoscope Application List</title>
-  {% comment %} <link rel="stylesheet" href="style.css" /> {% endcomment %}
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_additional %} 
+<link rel="stylesheet" href="{% static 'horoscope/css/index.css'%}" />
+{% endblock %}
+
+{% block title %}
+  Horoscope Application List
+{% endblock %}
+
+{% block content %}
+
+  {% include 'includes/navbar.html' only %}
   <h1>Horoscope Application List</h1>
   {% if zodiac_list %}
   <ul>
@@ -14,5 +21,8 @@
   {% endfor %}
   </ul>
   {% endif %}
-</body>
-</html>
+
+  {% include 'includes/navbar.html' only %}
+
+{% endblock %}
+  

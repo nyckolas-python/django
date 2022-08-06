@@ -1,23 +1,24 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Horoscope for {{ sign }}</title>
-  {% comment %} <link rel="stylesheet" href="style.css" /> {% endcomment %}
-</head>
-<body>
-  <h1>Horoscope Application</h1>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_additional %} 
+<link rel="stylesheet" href="{% static 'horoscope/css/info.css'%}" />
+{% endblock %}
+
+{% block title %}
+  Horoscope for {{ sign|capfirst }}
+{% endblock %}
+
+{% block content %}
+
+  {% include 'includes/navbar.html' %}
+
   {% if description_data is None %}    
-    <h2>There is no such zodiac sign - {{sign|upper}}</h2>
+  <h2>There is no such zodiac sign - {{ sign|upper }}</h2>
   {% else %}
-    <h2>{{ description_data }}</h2>
+  <h1>{{ sign|capfirst }}</h1>
+  <h2>{{ description_data|capfirst|safe }}</h2>
   {% endif %}
-  <p>Number Int - {{ my_int|add:my_float }}</p>
-  <p>Number float - {{ my_float }}</p>
-  <p>List - {{ my_list| last }}</p>
-  <p>Tuple - {{ my_tuple| join:"_=//=_" }}</p>
-  <p>Dict - {{ my_dict }}, key - {{ my_dict.name }}</p>
-  <p>Class instance - {{ my_class }} age {{ my_class.age }}</p>
-  <p>Default - {{ value|default:"qwerty" }}</p>
-</body>
-</html>
+
+{% endblock %}
