@@ -41,7 +41,7 @@ def get_type(request):
     types_list = list(types_dict)
     li_elements = ''
     for type_name in types_list:
-        redirect_path = reverse('type-name', args=(type_name, ))
+        redirect_path = reverse('horoscope-type-name', args=(type_name, ))
         li_elements += f"<li> <a href='{redirect_path}'>{type_name.title()}</a> </li>"
 
     response = f"<ul> {li_elements} </ul>"
@@ -59,7 +59,7 @@ def get_type_names(request, type_name: str):
         response = f"<ul> {li_elements} </ul>"
         return HttpResponse(response)
     else:
-        redirect_url = reverse('type/')
+        redirect_url = reverse('horoscope-type')
         return HttpResponseRedirect(f"{redirect_url}")
 
 
@@ -84,12 +84,6 @@ def get_zodiac(request, sign_zodiac: str):
     data = {
         'description_data': description,
         'sign': sign_zodiac.title(),
-        'my_int': 111,
-        'my_float': 111.25,
-        'my_list': [1, 2, 3],
-        'my_tuple': (1, 2, 3, 4, 5),
-        'my_dict': {'name': 'Jack', 'age': 40},
-        'my_class': Person('Nyckolas', 32),
-        
+        'zodiac_list': list(zodiac_dict)
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
