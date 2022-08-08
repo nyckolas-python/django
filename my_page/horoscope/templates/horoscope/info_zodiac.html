@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load my_filters %}
 
 {% block css_additional %} 
 <link rel="stylesheet" href="{% static 'horoscope/css/info.css'%}" />
@@ -19,6 +20,8 @@
   {% else %}
   <h1>{{ sign|capfirst }}</h1>
   <h2>{{ description_data|capfirst|safe }}</h2>
+  {% comment %} <h2>{{ description_data|split|first }} - my filter split</h2> {% endcomment %}
+
   {% endif %}
 
 {% endblock %}
