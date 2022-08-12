@@ -10,4 +10,4 @@ class Book(models.Model):
 
 
     def __str__(self) -> str:
-        return f"{self.title} - {self.rating}% - bestSeller - {self.is_best_selling}"
+        return f"{self.title} - {self.rating}% - bestSeller - {self.is_best_selling} author - {self.author}"
