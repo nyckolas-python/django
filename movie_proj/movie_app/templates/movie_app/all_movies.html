@@ -10,4 +10,9 @@
 	<li> <a href={{ movie.get_url }}>{{ movie.name }}</a>, rating - {{ movie.rating }}, year - {{ movie.year|default:'unknown' }}. </li>
 	{% endfor %}
   </ul>
+  <h3>Average budget - {{ agg.budget__avg }} </h3>
+  <h3>Max rating - {{ agg.rating__max }} </h3>
+  <h3>Min rating - {{ agg.rating__min }} </h3>
+  <h3>Count of films - {{ agg.id__count }} </h3>
+
 {% endblock %}
