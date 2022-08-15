@@ -1,4 +1,7 @@
+from locale import currency
 from django.contrib import admin
+from django.db.models import QuerySet
+
 from .models import Movie
 # Register your models here.
 
@@ -8,6 +11,8 @@ class MovieAdmin(admin.ModelAdmin):
     list_editable = ['rating', 'year', 'budget', 'currency']
     ordering =['-rating', 'name']
     list_per_page = 3
+    actions = ['set_dollars']
+    search_fields = ['name', 'rating']
     
     @admin.display(ordering='rating', description='Статус')
     def rating_status(self, mov: Movie):
@@ -20,6 +25,12 @@ class MovieAdmin(admin.ModelAdmin):
 
         return 'Топчик!'
     
-# admin.site.register(Movie, MovieAdmin) # заменили на декоратор
+    @admin.action(description='Установить валюту в доллар.')
+    def set_dollars(self, request, qs: QuerySet):
+        qs.update(currency=Movie.USD)
+        
+        
+    
+# admin.site.register(Movie, MovieAdmin) # заменили на декоратор @admin.register(Movie)
 
     
