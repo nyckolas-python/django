@@ -7,17 +7,21 @@ from django.utils.text import slugify
 
 class Movie(models.Model):
 
+    EUR = 'EUR'
+    USD = 'USD'
+    UAH = 'UAH'
+
     CURRENCY_CHOICES = [
-        ('EUR', 'Euro'),
-        ('USD', 'Dollar'),
-        ('UAH', 'Hryvna'),
+        (EUR, 'Euro'),
+        (USD, 'Dollar'),
+        (UAH, 'Hryvna'),
     ]
 
     name = models.CharField(max_length=40)
     rating = models.IntegerField()
     year = models.IntegerField(null=True)
     currency = models.CharField(
-        default='USD', max_length=3, choices=CURRENCY_CHOICES)
+        default=USD, max_length=3, choices=CURRENCY_CHOICES)
     budget = models.IntegerField(default=1000000)
     slug = models.SlugField(default='', null=False, db_index=True)
 
