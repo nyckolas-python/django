@@ -1,0 +1,12 @@
+{% extends 'movie_app/base.html' %}
+
+{% block title %} Info about director - {{ director }} {% endblock %}
+
+{% block content %}
+
+  <h2> Info about director - {{ director }}: </h2>
+  <h3> Name - {{ director.first_name }} </h3>
+  <h3> Surname - {{ director.last_name }} </h3>
+  <h3> E-mail - {{ director.email }} </h3>
+ 
+{% endblock %}
