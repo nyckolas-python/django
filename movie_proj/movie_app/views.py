@@ -2,8 +2,21 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import F, Sum, Max, Min, Avg, Count, Value
 
 # Create your views here.
-from .models import Movie
+from .models import Movie, Director
 
+
+def show_all_directors(request):
+    directors = Director.objects.all()
+    return render(request, 'movie_app/all_directors.html', {
+        'directors': directors,
+        })
+
+def show_one_director(request, id_director: int):
+    director = get_object_or_404(Director, id=id_director)
+    return render(request, 'movie_app/one_director.html', {
+        'director': director
+    })
+    
 
 def show_all_movies(request):
     # movies = Movie.objects.order_by(F('year').desc(nulls_last=True), '-rating')
