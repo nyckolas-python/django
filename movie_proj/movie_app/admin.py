@@ -2,7 +2,7 @@ from locale import currency
 from django.contrib import admin
 from django.db.models import QuerySet
 
-from .models import Movie, Director
+from .models import Movie, Director, Actor
 # Register your models here.
 
 class RatingFilter(admin.SimpleListFilter):
@@ -32,6 +32,10 @@ class RatingFilter(admin.SimpleListFilter):
 class DirectorsAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(Actor)
+class ActorsAdmin(admin.ModelAdmin):
+    pass
+
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
@@ -46,6 +50,8 @@ class MovieAdmin(admin.ModelAdmin):
     actions = ['set_dollars']
     search_fields = ['name', 'rating']
     list_filter = ['name', RatingFilter, 'director']
+    filter_horizontal = ['actors']
+    
     
     @admin.display(ordering='rating', description='Статус')
     def rating_status(self, mov: Movie):
