@@ -2,7 +2,7 @@ from locale import currency
 from django.contrib import admin
 from django.db.models import QuerySet
 
-from .models import Movie
+from .models import Movie, Director
 # Register your models here.
 
 class RatingFilter(admin.SimpleListFilter):
@@ -28,15 +28,24 @@ class RatingFilter(admin.SimpleListFilter):
         return queryset
 
 
+@admin.register(Director)
+class DirectorsAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'rating', 'year', 'budget', 'currency', 'rating_status']
-    list_editable = ['rating', 'year', 'budget', 'currency']
+    # fields = ['name', 'rating', 'year', 'budget', 'currency'] # поля отображаются в карточке
+    # exclude = ['slug'] # поля которые не отображаются в карточке Модели.
+    # readonly_fields = ['rating'] # поля, которые нельзя изменить.
+    prepopulated_fields = {'slug': ('name',)}
+    list_display = ['name', 'rating', 'year', 'budget', 'director', 'rating_status']
+    list_editable = ['rating', 'year', 'budget', 'director']
     ordering =['-rating', 'name']
     list_per_page = 3
     actions = ['set_dollars']
     search_fields = ['name', 'rating']
-    list_filter = ['name', RatingFilter, 'currency']
+    list_filter = ['name', RatingFilter, 'director']
     
     @admin.display(ordering='rating', description='Статус')
     def rating_status(self, mov: Movie):
