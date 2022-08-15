@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.core.validators import MaxValueValidator,MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -10,10 +10,29 @@ class Director(models.Model):
     first_name = models.CharField(max_length=128, null=False)
     last_name = models.CharField(max_length=128, null=False)
     email = models.CharField(max_length=256, null=False)
-    
+
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
-    
+
+
+class Actor(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+
+    GENDERS = [
+        (MALE, 'MALE'),
+        (FEMALE, 'FEMALE'),
+    ]
+    first_name = models.CharField(max_length=128, null=False)
+    last_name = models.CharField(max_length=128, null=False)
+    gender = models.CharField(default=MALE, max_length=1, choices=GENDERS)
+
+    def __str__(self) -> str:
+        if self.gender == 'M':
+            return f"Mr {self.first_name} {self.last_name}"
+        else:
+            return f"Mrs {self.first_name} {self.last_name}"
+
 
 class Movie(models.Model):
 
@@ -28,13 +47,16 @@ class Movie(models.Model):
     ]
 
     name = models.CharField(max_length=40)
-    rating = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(1)])
+    rating = models.IntegerField(
+        validators=[MaxValueValidator(100), MinValueValidator(1)])
     year = models.IntegerField(null=True)
     currency = models.CharField(
         default=USD, max_length=3, choices=CURRENCY_CHOICES)
-    budget = models.IntegerField(default=1000000, validators=[MinValueValidator(1)])
+    budget = models.IntegerField(
+        default=1000000, validators=[MinValueValidator(1)])
     slug = models.SlugField(default='', null=False, db_index=True)
     director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
+    actors = models.ManyToManyField(Actor)
 
     # метод для заполнения поля при сохранении, например можно пройти цыклом все записи.
     # def save(self, *args, **kwargs):
