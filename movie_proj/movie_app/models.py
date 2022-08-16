@@ -29,9 +29,9 @@ class Actor(models.Model):
 
     def __str__(self) -> str:
         if self.gender == 'M':
-            return f"Mr {self.first_name} {self.last_name}"
+            return f"Actor {self.first_name} {self.last_name}"
         else:
-            return f"Mrs {self.first_name} {self.last_name}"
+            return f"Actress {self.first_name} {self.last_name}"
 
 
 class Movie(models.Model):
