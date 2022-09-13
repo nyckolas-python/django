@@ -8,5 +8,14 @@
   <h3> Name - {{ actor.first_name }} </h3>
   <h3> Surname - {{ actor.last_name }} </h3>
   <h3> Gender - {{ actor.gender }} </h3>
+  <br>
+  <h2> List of movies played by {{ actor.first_name }} {{ actor.last_name }}: </h2>
+  <ul>
+  {% for movie in actor.movies.all %}
+    <li>
+      <h2> <a href={{ movie.get_url }}>{{ movie.name }} ({{ movie.year }})</a>: Rating - {{ movie.rating }} </h2>
+    </li>
+  {% endfor %}
+  </ul>
  
 {% endblock %}
