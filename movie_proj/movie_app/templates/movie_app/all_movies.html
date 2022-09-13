@@ -7,7 +7,11 @@
   <ul>
 	{% for movie in movies %}
 	{% comment %} <li> <a href={% url 'movie_detail' movie.id %}>{{ movie.name }}</a>, rating - {{ movie.rating }}, year - {{ movie.year|default:'unknown' }}. </li> {% endcomment %}
-	<li> <a href={{ movie.get_url }}>{{ movie.name }}</a>, rating - {{ movie.rating }}, year - {{ movie.year|default:'unknown' }}. </li>
+	<li>
+    <a href={{ movie.get_url }}>{{ movie.name }}</a>, 
+    rating - {{ movie.rating }}, 
+    year - {{ movie.year|default:'unknown' }}.
+  </li>
 	{% endfor %}
   </ul>
   <h3>Average budget - {{ agg.budget__avg }} </h3>
