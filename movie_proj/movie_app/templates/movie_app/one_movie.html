@@ -7,7 +7,22 @@
   <h3> Rating - {{ movie.rating }} </h3>
   <h3> Year - {{ movie.year|default:'unknown' }} </h3>
   <h3> Budget - {{ movie.budget }} </h3>
-
+  <hr>
+  <h2> Info about director: </h2>
+  <h3> First name - {{ movie.director.first_name }} </h3>
+  <h3> Last name - {{ movie.director.last_name }} </h3>
+  <h3> Email - {{ movie.director.email }} </h3>
+  <hr>
+  <h2> List of actors: </h2>
+  <ul>
+  {% for actor in movie.actors.all %}
+    <li>
+      <h3><a href={% url 'actor_detail' actor.id %}>{{ actor.first_name }} {{ actor.last_name }}</a>, 
+      gender - {{ actor.gender }}.</h3>
+    </li>
+  {% endfor %}
+  </ul>
+  
 
   
   
