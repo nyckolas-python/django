@@ -8,5 +8,14 @@
   <h3> Name - {{ director.first_name }} </h3>
   <h3> Surname - {{ director.last_name }} </h3>
   <h3> E-mail - {{ director.email }} </h3>
+  <br>
+  <h2> List of movies directed by {{ director.first_name }} {{ director.last_name }}: </h2>
+  <ul>
+  {% for movie in director.movies.all %}
+    <li>
+      <h2> <a href={{ movie.get_url }}>{{ movie.name }} ({{ movie.year }})</a>: Rating - {{ movie.rating }} </h2>
+    </li>
+  {% endfor %}
+  </ul>
  
 {% endblock %}
