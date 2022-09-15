@@ -2,7 +2,7 @@ from locale import currency
 from django.contrib import admin
 from django.db.models import QuerySet
 
-from .models import Movie, Director, Actor
+from .models import Movie, Director, Actor, DressingRoom
 # Register your models here.
 
 class RatingFilter(admin.SimpleListFilter):
@@ -27,6 +27,10 @@ class RatingFilter(admin.SimpleListFilter):
             return queryset.filter(rating__gte=80)
         return queryset
 
+
+@admin.register(DressingRoom)
+class DressingRoomsAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Director)
 class DirectorsAdmin(admin.ModelAdmin):
