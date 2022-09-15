@@ -6,6 +6,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
+class DressingRoom(models.Model):
+    floor = models.IntegerField(
+        validators=[MaxValueValidator(30), MinValueValidator(1)])
+    room = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f"{self.floor} {self.room}"
+
+
 class Director(models.Model):
     first_name = models.CharField(max_length=128, null=False)
     last_name = models.CharField(max_length=128, null=False)
@@ -26,6 +35,7 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=128, null=False)
     last_name = models.CharField(max_length=128, null=False)
     gender = models.CharField(default=MALE, max_length=1, choices=GENDERS)
+    dressing = models.OneToOneField(DressingRoom, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self) -> str:
         if self.gender == 'M':
