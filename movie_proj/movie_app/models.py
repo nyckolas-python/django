@@ -78,3 +78,5 @@ class Movie(models.Model):
 
     def get_url(self):
         return reverse('movie_detail', args=[self.slug])
+
+# python3 manage.py shell_plus --print-sql
