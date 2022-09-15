@@ -29,8 +29,8 @@ class RatingFilter(admin.SimpleListFilter):
 
 
 @admin.register(DressingRoom)
-class DressingRoomsAdmin(admin.ModelAdmin):
-    pass
+class DressingRoomAdmin(admin.ModelAdmin):
+    list_display = ['floor', 'room', 'actor']
 
 @admin.register(Director)
 class DirectorsAdmin(admin.ModelAdmin):
